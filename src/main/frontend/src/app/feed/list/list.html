@@ -1,0 +1,52 @@
+<section class="container-fluid list" window-resize >
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Flickr Public Feed</h1>
+    </div>
+    <div class="col-sm-4">
+      <form class="form-inline tagsForm" role="form" ng-submit="list.showByTags()">
+        <div class="tagsForm">
+          <label for="tags">Tags</label>
+          <input type="text" id="tags" class="form-control" ng-model="list.tags" ng-/>
+          <button class="btn btn-default" ng-click="">Reload</button>   
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr />
+  <div class=" row filter">
+    <div class="col-xs-4 col-sm-3 col-lg-2 col-lg-offset-1 col-sm-offset-2 col-xs-offset-3">
+      <input type="text" placeholder="title" class="form-control" ng-model="list.search.title"/>
+    </div>
+  </div>
+  <hr/>
+  <div class="row list-item" ng-repeat="photo in list.collection| filter: list.search track by photo.id">
+
+    <div class="image-box col-xs-3 col-sm-2 col-lg-1">
+      <a ng-href="#feed/{{photo.id}}">
+        <img ng-src="{{photo.media.m}}" />
+      </a>
+    </div>
+
+    <div class="col-xs-9 col-sm-10 col-lg-11">
+      <h2>
+        <a class="link-to-detail" ng-href="#feed/{{photo.id}}">
+          <dynamic-truncate text="photo.title|default:'[untitled]'"></dynamic-truncate>
+        </a>
+      </h2>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <span class="date" published-date="photo.published"></span>
+        </div>
+        <div class="col-sm-12">
+          <a class="author" ng-href="https://www.flickr.com/people/{{photo.author_id}}/">Photo author</a>
+          <a class="flickr-link" ng-href="{{photo.link}}">View on Flickr</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row list-item" ng-if="list.collection.length == 0">
+    No data
+  </div>
+</section>
