@@ -1,0 +1,1 @@
+document.write('<script src="//localhost:35729/livereload.js"></script><script src="../bower_components/angular/angular.js"></script><script src="../bower_components/angular-route/angular-route.js"></script><script src="../bower_components/jquery/dist/jquery.js"></script><script src="../bower_components/angular-truncate/src/truncate.js"></script>');
