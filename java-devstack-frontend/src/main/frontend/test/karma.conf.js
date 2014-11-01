@@ -2,16 +2,17 @@ module.exports = function(config) {
   config.set({
     basePath: '../',
     files: [
+      'test/utils/Function.bind.polyfill.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'src/app/**/*.js',
       'src/common/**/*.js'
     ],
     frameworks: ['jasmine'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     plugins: [
       'karma-chrome-launcher',
-      'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-coverage',
       'karma-junit-reporter'

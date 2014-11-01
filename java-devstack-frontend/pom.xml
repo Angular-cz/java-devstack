@@ -80,16 +80,13 @@
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-
                     <filesets>
-
                         <fileset>
                             <directory>src/main/frontend/build</directory>
                         </fileset>
                     </filesets>
                 </configuration>
             </plugin>
-
         </plugins>
 
         <resources>

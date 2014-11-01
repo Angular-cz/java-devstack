@@ -202,7 +202,7 @@ gulp.task('build-test', function() {
     'build/vendor.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'build/scripts.js',
-    'src/**/*.spec.js'
+    'test/**/*.spec.js'
   ];
 
   return gulp.src(testFiles)
