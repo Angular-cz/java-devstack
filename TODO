@@ -1,5 +1,6 @@
- odstranit závislost na spring-boot
-testy v gulpu
+odstranit závislost na spring-boot
+
+karma nebo gulp build-test
 protractor
 
 npm-offline?

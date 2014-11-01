@@ -4,3 +4,4 @@
 **/bower_components
 target
 *.iml
+**/npm-debug.log
