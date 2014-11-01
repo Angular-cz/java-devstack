@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 
+var del = require('del');
 var esteWatch = require('este-watch');
 var Server = require('http-server');
 var mainBowerFiles = require('main-bower-files');
@@ -174,9 +175,10 @@ gulp.task('devel', function() {
   );
 });
 
-gulp.task('build-clean', function() {
-  return gulp.src(config.gulp.dirs.build)
-    .pipe(plugins.rimraf());
+gulp.task('build-clean', function(cb) {
+  del([
+    config.gulp.dirs.build
+  ], cb);
 });
 
 gulp.task('build-index', function() {
@@ -202,7 +204,7 @@ gulp.task('build-test', function() {
     'build/vendor.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'build/scripts.js',
-    'test/**/*.spec.js'
+    'src/**/*.spec.js'
   ];
 
   return gulp.src(testFiles)
