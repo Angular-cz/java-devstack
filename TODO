@@ -1,8 +1,6 @@
-možno nastartovat i v maven-boot:run, nebo odstranit závislost na spring-boot
+ odstranit závislost na spring-boot
 testy v gulpu
-rozdělení na více modulů
-
-jetty plugin
 protractor
 
 npm-offline?
+

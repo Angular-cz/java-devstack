@@ -1,19 +1,15 @@
-(function(angular) {
+(function (angular) {
   'use strict';
 
   angular
-      .module('flickerDemo', [
-        'ngRoute',
-        'truncate',
-        'common.filters.default',
-        'common.directives.publishedDate',
-        'common.directives.windowResize',
-        'flickerDemo.feed'
-      ])
-      .config(['$routeProvider',
-        function($routeProvider) {
-          $routeProvider.otherwise({
-            redirectTo: '/feed'
-          });
-        }]);
+    .module('javaDemo', [
+      'ngRoute',
+      'javaDemo.user'
+    ])
+    .config(['$routeProvider',
+      function ($routeProvider) {
+        $routeProvider.otherwise({
+          redirectTo: '/user'
+        });
+      }]);
 })(window.angular);

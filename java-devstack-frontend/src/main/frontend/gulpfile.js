@@ -1,26 +1,12 @@
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
-var Server = require('http-server');
+var plugins = require('gulp-load-plugins')();
+
 var esteWatch = require('este-watch');
-
-var concat = require('gulp-concat');
-var cssmin = require('gulp-cssmin');
-var filter = require('gulp-filter');
-var gulpif = require('gulp-if');
-var jshint = require('gulp-jshint');
-var less = require('gulp-less');
-var livereload = require('gulp-livereload');
-var minimatch = require("minimatch");
-var ngAnnotate = require('gulp-ng-annotate');
-var open = require('open');
-var plumber = require('gulp-plumber');
-var rimraf = require('gulp-rimraf');
-var uglify = require('gulp-uglify');
-
+var Server = require('http-server');
 var mainBowerFiles = require('main-bower-files');
-var angularFilesort = require('gulp-angular-filesort');
-var templateCache = require('gulp-angular-templatecache');
-var pseudoconcatJs = require('gulp-pseudoconcat-js');
+var minimatch = require("minimatch");
+var open = require('open');
+var runSequence = require('run-sequence');
 
 var config = require('./config.js');
 
@@ -42,9 +28,9 @@ config.gulp.filepath = {
 };
 
 config.gulp.generatedFiles = [
-  config.gulp.dirs.src + config.gulp.filename.js.application,
-  config.gulp.dirs.src + config.gulp.filename.js.vendor,
-  config.gulp.dirs.src + config.gulp.filename.js.templates
+    config.gulp.dirs.src + config.gulp.filename.js.application,
+    config.gulp.dirs.src + config.gulp.filename.js.vendor,
+    config.gulp.dirs.src + config.gulp.filename.js.templates
 ];
 
 config.gulp.destinationDir = config.gulp.dirs.src;
@@ -54,14 +40,14 @@ if (config.gulp.isProduction) {
 
 config.gulp.paths = {
   scripts: [
-    config.gulp.dirs.src + '**/*.js',
-    '!' + config.gulp.dirs.src + '**/*spec.js'
+      config.gulp.dirs.src + '**/*.js',
+      '!' + config.gulp.dirs.src + '**/*spec.js'
   ],
   templates: [
-    config.gulp.dirs.srcApp + '**/*.html'
+      config.gulp.dirs.srcApp + '**/*.html'
   ],
   less: [
-    config.gulp.dirs.srcLess + '**/*.less'
+      config.gulp.dirs.srcLess + '**/*.less'
   ],
   livereload: config.gulp.generatedFiles
 };
@@ -101,26 +87,26 @@ function httpServer(options) {
 
 gulp.task('templates', function() {
   return gulp.src(config.gulp.paths.templates)
-    .pipe(templateCache(config.gulp.filename.js.templates, {module: config.appliaction.name}))
+    .pipe(plugins.angularTemplatecache(config.gulp.filename.js.templates, {module: config.appliaction.name}))
     .pipe(gulp.dest(config.gulp.destinationDir));
 });
 
 gulp.task('js-lint', function() {
   return gulp.src(config.gulp.paths.scripts)
-    .pipe(jshint())
-    .pipe(jshint.reporter('fail'));
+    .pipe(plugins.jshint())
+    .pipe(plugins.jshint.reporter('fail'));
 });
 
 gulp.task("js-vendor", function() {
-  var bowerJsFitler = filter(['**/*.js', '!**/bootstrap.js']);
+  var bowerJsFitler = plugins.filter(['**/*.js', '!**/bootstrap.js']);
 
   return gulp.src(mainBowerFiles())
-    .pipe(plumber())
+    .pipe(plugins.plumber())
     .pipe(bowerJsFitler)
-    .pipe(gulpif(config.gulp.isProduction,
-      concat(config.gulp.filename.js.vendor),
-      pseudoconcatJs(config.gulp.filename.js.vendor, {webRoot: config.gulp.dirs.src}, ['//' + config.gulp.httpServer.host + ':' + config.gulp.httpServer.lrPort + '/livereload.js'])
-      ))
+    .pipe(plugins.if(config.gulp.isProduction,
+      plugins.concat(config.gulp.filename.js.vendor),
+      plugins.pseudoconcatJs(config.gulp.filename.js.vendor, {webRoot: config.gulp.dirs.src}, ['//' + config.gulp.httpServer.host + ':' + config.gulp.httpServer.lrPort + '/livereload.js'])
+    ))
     .pipe(gulp.dest(config.gulp.destinationDir));
 });
 
@@ -132,25 +118,25 @@ gulp.task("js-main", ['js-lint', 'templates'], function() {
   }
 
   return gulp.src(angularScripts)
-    .pipe(plumber())
-    .pipe(angularFilesort())
-    .pipe(ngAnnotate())
-    .pipe(gulpif(config.gulp.isProduction,
-      concat(config.gulp.filename.js.application),
-      pseudoconcatJs(config.gulp.filename.js.application, {webRoot: config.gulp.dirs.src})
-      ))
+    .pipe(plugins.plumber())
+    .pipe(plugins.angularFilesort())
+    .pipe(plugins.ngAnnotate())
+    .pipe(plugins.if(config.gulp.isProduction,
+      plugins.concat(config.gulp.filename.js.application),
+      plugins.pseudoconcatJs(config.gulp.filename.js.application, {webRoot: config.gulp.dirs.src})
+    ))
     .pipe(gulp.dest(config.gulp.destinationDir));
 });
 
 gulp.task('less', function() {
   return gulp.src(config.gulp.filepath.less)
-    .pipe(plumber())
-    .pipe(less())
+    .pipe(plugins.plumber())
+    .pipe(plugins.less())
     .pipe(gulp.dest(config.gulp.destinationDir + config.gulp.dirs.parts.css));
 });
 
 gulp.task("watch", function() {
-  livereload.listen(config.gulp.httpServer.lrPort);
+  plugins.livereload.listen(config.gulp.httpServer.lrPort);
   httpServer(config.gulp.httpServer);
   esteWatch([config.gulp.dirs.src], function(e) {
 
@@ -177,7 +163,7 @@ gulp.task("watch", function() {
   }).start();
 
   gulp.watch(config.gulp.paths.livereload).on('change', function(filepath) {
-    livereload.changed(filepath, config.gulp.httpServer.lrPort);
+    plugins.livereload.changed(filepath, config.gulp.httpServer.lrPort);
   });
 });
 
@@ -185,11 +171,12 @@ gulp.task('devel', function() {
   runSequence(
     ['less', 'js-vendor', 'js-main'],
     'watch'
-    );
+  );
 });
 
 gulp.task('build-clean', function() {
-  return gulp.src(config.gulp.dirs.build).pipe(rimraf());
+  return gulp.src(config.gulp.dirs.build)
+    .pipe(plugins.rimraf());
 });
 
 gulp.task('build-index', function() {
@@ -199,16 +186,35 @@ gulp.task('build-index', function() {
 
 gulp.task('build-js', ['js-vendor', 'js-main'], function() {
   return gulp.src([config.gulp.filepath.js.application, config.gulp.filepath.js.vendor])
-    .pipe(uglify())
+    .pipe(plugins.uglify())
     .pipe(gulp.dest(config.gulp.dirs.build));
 });
 
 gulp.task('build-css', ['less'], function() {
   return gulp.src([config.gulp.filepath.css])
-    .pipe(cssmin())
+    .pipe(plugins.cssmin())
     .pipe(gulp.dest(config.gulp.dirs.buildCss));
 });
 
+gulp.task('build-test', function() {
+  var testFiles = [
+    'test/utils/Function.bind.polyfill.js',
+    'build/vendor.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'build/scripts.js',
+    'src/**/*.spec.js'
+  ];
+
+  return gulp.src(testFiles)
+    .pipe(plugins.karma({
+      configFile: 'test/karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
 
 gulp.task('build', ['build-clean'], function() {
   config.gulp.isProduction = true;
@@ -216,7 +222,7 @@ gulp.task('build', ['build-clean'], function() {
   runSequence(
     ['build-js', 'build-css'],
     'build-index'
-    );
+  );
 
 });
 

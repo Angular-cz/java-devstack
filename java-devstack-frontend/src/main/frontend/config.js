@@ -2,7 +2,7 @@ var util = require('gulp-util');
 
 module.exports = {
   appliaction: {
-    name: 'flickerDemo'
+    name: 'javaDemo'
   },
   gulp: {
     httpServer: {
