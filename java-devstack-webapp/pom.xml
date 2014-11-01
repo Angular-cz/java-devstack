@@ -91,13 +91,97 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.16.v20140903</version>
                 <configuration>
+                    <stopPort>9999</stopPort>
+                    <stopKey>foo</stopKey>
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
+
+    <profiles>
+
+        <profile>
+            <id>integration-test</id>
+            <activation>
+                <property>
+                    <name>!skipTests</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>8.1.16.v20140903</version>
+                        <configuration>
+                            <stopPort>9999</stopPort>
+                            <stopKey>foo</stopKey>
+                            <webApp>
+                                <contextPath>/</contextPath>
+                            </webApp>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-server</id>
+                                <goals>
+                                    <goal>run-war</goal>
+                                </goals>
+                                <configuration>
+                                    <war>${project.build.directory}/${project.build.finalName}.war</war>
+                                    <daemon>true</daemon>
+                                </configuration>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>stop-server</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>0.0.16</version>
+
+                        <configuration>
+                            <workingDirectory>../java-devstack-frontend/src/main/frontend</workingDirectory>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>update web driver</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+
+                                <configuration>
+                                    <arguments>run update-webdriver</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>protractor</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>integration-test</phase>
+
+                                <configuration>
+                                    <arguments>run protractor-ci</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

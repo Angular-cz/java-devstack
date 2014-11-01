@@ -29,6 +29,8 @@
                 <version>8.1.16.v20140903</version>
 
                 <configuration>
+                    <stopPort>9999</stopPort>
+                    <stopKey>foo</stopKey>
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
