@@ -3,3 +3,11 @@ odstranit závislost na spring-boot
 karma nebo gulp build-test
 protractor headless
 
+hardcodovaná cesta
+
+java hotswap
+
+testy jako profil
+
+proxy
+

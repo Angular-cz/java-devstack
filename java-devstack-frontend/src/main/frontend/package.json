@@ -13,7 +13,6 @@
     "update-webdriver": "webdriver-manager update",
     "protractor": "protractor test/protractor-conf.js",
     "protractor-ci": "protractor test/protractor-conf.ci.js",
-    "protractor-phantom": "protractor test/protractor-conf.phantomjs.ci.js"
   },
   "author": "angular@angular.cz>",
   "devDependencies": {
