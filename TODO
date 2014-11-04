@@ -1,7 +1,5 @@
 odstranit závislost na spring-boot
 
 karma nebo gulp build-test
-protractor
-
-npm-offline?
+protractor headless
 

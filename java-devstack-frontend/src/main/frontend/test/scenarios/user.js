@@ -9,4 +9,10 @@ describe('user detail', function() {
     expect(browser.getTitle()).toEqual('Java devstack');
   });
 
+  it('should have right name', function() {
+    var elem = element(by.css('.page div div'));
+    expect(elem.getText()).toEqual('Hello World');
+  });
+
+
 });

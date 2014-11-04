@@ -95,6 +95,7 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
+                    <war>${project.build.directory}/${project.build.finalName}.war</war>
                 </configuration>
             </plugin>
         </plugins>
