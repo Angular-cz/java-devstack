@@ -1,13 +1,5 @@
-odstranit závislost na spring-boot
-
-karma nebo gulp build-test
-protractor headless
-
-hardcodovaná cesta
-
 java hotswap
 
-testy jako profil
-
+bat a sh pro spuštění javy v targetu webapp
 proxy
 

@@ -5,7 +5,6 @@
 
     <artifactId>java-devstack-webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <parent>
         <groupId>cz.angular</groupId>
@@ -16,7 +15,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>cz.angular</groupId>
             <artifactId>java-devstack-frontend</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -25,6 +24,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -41,16 +46,12 @@
     </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>${project.build.directory}/generated-resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -63,26 +64,37 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
+                            <outputDirectory>${project.build.directory}/non-packaged-resources/</outputDirectory>
                             <includeArtifactIds>java-devstack-frontend</includeArtifactIds>
                             <includeGroupIds>${project.groupId}</includeGroupIds>
                             <excludeTransitive>true</excludeTransitive>
-                            <!--use as much as needed to be specific...also scope,type,classifier etc-->
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>${project.build.directory}/classes/src/main/resources/frontend</directory>
-                        </resource>
-                    </webResources>
-                </configuration>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>
+                                        ${project.build.directory}/non-packaged-resources/src/main/resources/frontend
+                                    </directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -95,7 +107,7 @@
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
-                    <war>${project.build.directory}/${project.build.finalName}.war</war>
+                    <classesDirectory>${project.build.directory}/classes</classesDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -105,11 +117,6 @@
 
         <profile>
             <id>integration-test</id>
-            <!--<activation>-->
-                <!--<property>-->
-                    <!--<name>!skipTests</name>-->
-                <!--</property>-->
-            <!--</activation>-->
             <build>
                 <plugins>
                     <plugin>
@@ -127,10 +134,10 @@
                             <execution>
                                 <id>start-server</id>
                                 <goals>
-                                    <goal>run-war</goal>
+                                    <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                    <war>${project.build.directory}/${project.build.finalName}.war</war>
+                                    <classesDirectory>${project.build.directory}/classes</classesDirectory>
                                     <daemon>true</daemon>
                                 </configuration>
                                 <phase>pre-integration-test</phase>

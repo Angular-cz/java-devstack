@@ -21,23 +21,28 @@
         <module>java-devstack-frontend</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.16.v20140903</version>
+    <!--<build>-->
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.mortbay.jetty</groupId>-->
+                <!--<artifactId>jetty-maven-plugin</artifactId>-->
+                <!--<version>8.1.16.v20140903</version>-->
 
-                <configuration>
-                    <stopPort>9999</stopPort>
-                    <stopKey>foo</stopKey>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                    <war>${project.basedir}/java-devstack-webapp/target/java-devstack-webapp-${version}.war</war>
-                </configuration>
-            </plugin>
-        </plugins>
+                <!--<configuration>-->
+                    <!--<stopPort>9999</stopPort>-->
+                    <!--<stopKey>foo</stopKey>-->
+                    <!--<webApp>-->
+                        <!--<contextPath>/</contextPath>-->
+                        <!--<extraClasspath>${project.basedir}/java-devstack-webapp/target/classes</extraClasspath>-->
 
-    </build>
+                    <!--</webApp>-->
+                    <!--<scanTargets>-->
+                        <!--<scanTarget>${project.basedir}/java-devstack-webapp/target/classes</scanTarget>-->
+                    <!--</scanTargets>-->
+                    <!--<classesDirectory>${project.basedir}/java-devstack-webapp/target/classes</classesDirectory>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+
+    <!--</build>-->
 </project>
