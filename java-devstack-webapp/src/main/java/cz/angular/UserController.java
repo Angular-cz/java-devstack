@@ -1,6 +1,9 @@
 package cz.angular;
 
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
+
+import cz.angular.user.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +15,18 @@ public class UserController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+	@Autowired
+	private UserService userService;
+
     @RequestMapping("/user")
     public User greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return new User(name);
+        return new User(42, name);
     }
+
+	@RequestMapping("/users")
+	public Collection<User> greeting() {
+		return userService.getUsers();
+	}
 
 
 }
