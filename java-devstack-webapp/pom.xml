@@ -5,6 +5,7 @@
 
     <artifactId>java-devstack-webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <parent>
         <groupId>cz.angular</groupId>
@@ -28,6 +29,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -108,6 +115,18 @@
                         <contextPath>/</contextPath>
                     </webApp>
                     <classesDirectory>${project.build.directory}/classes</classesDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.build.directory}/classes/static</directory>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
         </plugins>
