@@ -1,4 +1,5 @@
 var util = require('gulp-util');
+var url = require('url');
 
 module.exports = {
   appliaction: {
@@ -10,7 +11,8 @@ module.exports = {
       port: util.env.PORT || 8282,
       lrPort: util.env.LRPORT || 35729,
       run: false,
-      open: false
+      open: false,
+      proxy: false //url.parse('http://api.openbeerdatabase.com/v1/')
     },
     dirs: {
       build: 'build/',
