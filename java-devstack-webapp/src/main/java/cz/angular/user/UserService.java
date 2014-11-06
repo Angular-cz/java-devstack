@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import cz.angular.User;
+import org.springframework.context.annotation.Bean;
 
-@Bean
 public class UserService {
 
 	private HashMap<Integer, User> users;

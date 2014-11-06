@@ -10,7 +10,6 @@
         this.user = response.data;
       }.bind(this)
     );
-
   });
 
 })(window.angular);

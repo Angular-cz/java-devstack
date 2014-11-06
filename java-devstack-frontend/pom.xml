@@ -24,7 +24,6 @@
                 </configuration>
 
                 <executions>
-
                     <execution>
                         <id>install node and npm</id>
                         <goals>
@@ -82,7 +81,7 @@
 
         <resources>
             <resource>
-                <targetPath>src/main/resources/frontend</targetPath>
+                <targetPath>${project.build.outputDirectory}/META-INF/resources/static</targetPath>
                 <directory>src/main/frontend/build</directory>
                 <filtering>true</filtering>
             </resource>

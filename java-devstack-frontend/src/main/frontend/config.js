@@ -12,7 +12,7 @@ module.exports = {
       lrPort: util.env.LRPORT || 35729,
       run: false,
       open: false,
-      proxy: false //url.parse('http://api.openbeerdatabase.com/v1/')
+      proxy: url.parse('http://localhost:8080/api')
     },
     dirs: {
       build: 'build/',

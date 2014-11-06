@@ -73,7 +73,7 @@ function httpServer(options) {
   var app = connect();
 
   if (options.proxy) {
-    app.use('/api', proxy(options.proxy));
+    app.use('/src/api', proxy(options.proxy));
   }
 
   app.use(serveStatic('./'));

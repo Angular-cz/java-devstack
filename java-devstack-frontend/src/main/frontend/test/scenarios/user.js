@@ -11,8 +11,9 @@ describe('user detail', function() {
 
   it('should have right name', function() {
     var elem = element(by.css('.page div div'));
-    expect(elem.getText()).toEqual('Hello World');
+    expect(elem.getText()).toEqual('Ahoj - Světe');
   });
+
 
 
 });
