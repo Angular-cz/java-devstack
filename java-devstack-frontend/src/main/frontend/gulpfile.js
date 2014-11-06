@@ -3,7 +3,6 @@ var plugins = require('gulp-load-plugins')();
 
 var del = require('del');
 var esteWatch = require('este-watch');
-var Server = require('http-server');
 var mainBowerFiles = require('main-bower-files');
 var minimatch = require("minimatch");
 var open = require('open');
