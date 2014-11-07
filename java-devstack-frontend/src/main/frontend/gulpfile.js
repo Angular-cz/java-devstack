@@ -7,6 +7,7 @@ var mainBowerFiles = require('main-bower-files');
 var minimatch = require("minimatch");
 var open = require('open');
 var runSequence = require('run-sequence');
+var url = require('url');
 
 var config = require('./config.js');
 
@@ -73,7 +74,12 @@ function httpServer(options) {
   var app = connect();
 
   if (options.proxy) {
-    app.use('/src/api', proxy(options.proxy));
+    var route = options.proxy.routePath || '/api';
+    if (!options.proxy.destinationUrl) {
+      throw new Error('No proxy settings. You must set gulp.httpServer.proxy.destinationUrl');
+    }
+
+    app.use(route, proxy(url.parse(options.proxy.destinationUrl)));
   }
 
   app.use(serveStatic('./'));
@@ -81,9 +87,9 @@ function httpServer(options) {
   console.log("HTTP server running on ", options.host + ":" + options.port);
 
   if (options.open) {
-    var url = 'http://' + options.host + ":" + options.port + '/' + config.gulp.dirs.src;
-    console.log('Opening ' + url);
-    open(url);
+    var appUrl = 'http://' + options.host + ":" + options.port + '/' + config.gulp.dirs.src;
+    console.log('Opening ' + appUrl);
+    open(appUrl);
   }
 }
 

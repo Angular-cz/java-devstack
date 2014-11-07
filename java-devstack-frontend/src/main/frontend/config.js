@@ -1,5 +1,4 @@
 var util = require('gulp-util');
-var url = require('url');
 
 module.exports = {
   appliaction: {
@@ -12,7 +11,10 @@ module.exports = {
       lrPort: util.env.LRPORT || 35729,
       run: false,
       open: false,
-      proxy: url.parse('http://localhost:8080/api')
+      proxy: {
+        routePath: '/src/api',
+        destinationUrl: 'http://localhost:8080/api'
+      }
     },
     dirs: {
       build: 'build/',
