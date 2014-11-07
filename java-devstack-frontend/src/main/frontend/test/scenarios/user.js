@@ -15,5 +15,9 @@ describe('user detail', function() {
   });
 
 
+  it('should have right codding', function() {
+    var elem = element(by.css('.page div p'));
+    expect(elem.getText()).toEqual('Dobrý den');
+  });
 
 });

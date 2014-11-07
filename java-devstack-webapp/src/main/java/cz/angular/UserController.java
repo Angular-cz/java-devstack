@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping("/user")
     public User greeting(@RequestParam(value="name", defaultValue="Světe") String name) {
-        return new User(42, "No teda");
+        return new User(42, name);
     }
 
 	@RequestMapping("/users")

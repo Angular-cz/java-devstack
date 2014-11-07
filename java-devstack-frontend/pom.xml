@@ -24,6 +24,7 @@
                 </configuration>
 
                 <executions>
+
                     <execution>
                         <id>install node and npm</id>
                         <goals>
@@ -81,51 +82,11 @@
 
         <resources>
             <resource>
-                <targetPath>${project.build.outputDirectory}/META-INF/resources/static</targetPath>
+                <targetPath>src/main/resources/frontend</targetPath>
                 <directory>src/main/frontend/build</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
     </build>
-
-    <!--<profiles>-->
-    <!--<profile>-->
-    <!--<id>test frontend</id>-->
-    <!--<activation>-->
-    <!--<property>-->
-    <!--<name>!skipTests</name>-->
-    <!--</property>-->
-    <!--</activation>-->
-    <!--<build>-->
-    <!--<plugins>-->
-    <!--<plugin>-->
-    <!--<groupId>com.github.eirslett</groupId>-->
-    <!--<artifactId>frontend-maven-plugin</artifactId>-->
-    <!--<version>0.0.16</version>-->
-
-    <!--<configuration>-->
-    <!--<workingDirectory>src/main/frontend</workingDirectory>-->
-    <!--</configuration>-->
-
-    <!--<executions>-->
-
-    <!--<execution>-->
-    <!--<id>gulp build-test</id>-->
-    <!--<goals>-->
-    <!--<goal>gulp</goal>-->
-    <!--</goals>-->
-
-    <!--<phase>test</phase>-->
-
-    <!--<configuration>-->
-    <!--<arguments>build-test</arguments>-->
-    <!--</configuration>-->
-    <!--</execution>-->
-    <!--</executions>-->
-    <!--</plugin>-->
-    <!--</plugins>-->
-    <!--</build>-->
-    <!--</profile>-->
-    <!--</profiles>-->
 
 </project>
