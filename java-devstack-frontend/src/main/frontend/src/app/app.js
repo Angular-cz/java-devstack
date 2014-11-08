@@ -4,7 +4,7 @@
   angular
     .module('javaDemo', [
       'ngRoute',
-      'javaDemo.user'
+      'administration.orders'
     ])
     .config(['$routeProvider',
       function ($routeProvider) {
