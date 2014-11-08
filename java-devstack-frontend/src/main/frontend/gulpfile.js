@@ -102,6 +102,7 @@ gulp.task('templates', function() {
 gulp.task('js-lint', function() {
   return gulp.src(config.gulp.paths.scripts)
       .pipe(plugins.jshint())
+      .pipe(plugins.jshint.reporter('jshint-stylish'))
       .pipe(plugins.jshint.reporter('fail'));
 });
 

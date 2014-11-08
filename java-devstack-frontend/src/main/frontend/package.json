@@ -39,6 +39,7 @@
     "gulp-strip-debug": "^0.3.0",
     "gulp-uglify": "^0.3.1",
     "gulp-util": "^2.2.20",
+    "jshint-stylish": "~1.0.0",
     "karma": "~0.12",
     "karma-coverage": "^0.2.6",
     "karma-jasmine": "~0.2",
