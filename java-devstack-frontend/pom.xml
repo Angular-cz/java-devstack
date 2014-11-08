@@ -84,7 +84,6 @@
             <resource>
                 <targetPath>src/main/resources/frontend</targetPath>
                 <directory>src/main/frontend/build</directory>
-                <filtering>true</filtering>
             </resource>
         </resources>
     </build>

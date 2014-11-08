@@ -18,6 +18,7 @@
 
     <properties>
         <jetty.version>8.1.16.v20140903</jetty.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <modules>
@@ -36,7 +37,9 @@
                     <stopKey>foo</stopKey>
                     <webApp>
                         <contextPath>/</contextPath>
+
                     </webApp>
+
                     <war>${project.basedir}/java-devstack-webapp/target/java-devstack-webapp-${project.version}.war</war>
                 </configuration>
             </plugin>
