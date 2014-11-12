@@ -111,6 +111,9 @@ java -jar java-devstack-webapp-<version>.war
  - proxy-middleware
 
 
+##Prezentace##
+11.11.2014 - Java and javascript consistency na BrnoJS (materiály: [http://www.angular.cz/brnojs/])
+
 ##Licence##
 Tento projekt nebo know-how můžete používat kdekoli, včetně komerčních projektů. 
 Jediné co po Vás za to budeme chtít, abyste nám o tom dali vědět, ať víme, komu jsme pomohli.
