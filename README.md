@@ -112,7 +112,7 @@ java -jar java-devstack-webapp-<version>.war
 
 
 ##Prezentace##
-11.11.2014 - Java and javascript consistency na BrnoJS (materiály: [http://www.angular.cz/brnojs/])
+11.11.2014 - Java and javascript consistency na BrnoJS (materiály: http://www.angular.cz/brnojs/)
 
 ##Licence##
 Tento projekt nebo know-how můžete používat kdekoli, včetně komerčních projektů. 
