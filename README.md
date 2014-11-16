@@ -3,7 +3,7 @@
 #Proč java-devstack#
 
 Java programátoři berou javascript většinou trochu jinak než javascript programátoři. Přesto musí často spolupracovat.
-Javascript programátor je zvyklý používat nástroje, o kterých běžný java proghramátor ani neví že existují. 
+Javascript programátor je zvyklý používat nástroje, o kterých běžný java programátor ani neví, že existují.
 Java programátor zase očekává, že k sestavení aplikace pro nasazení mu stačí java a maven.
 
 Oba by si měli přijít na své. Tento počin proto pojednává o začlenění gulp devstacku do maven projektu.
@@ -18,7 +18,7 @@ Vrámci buildování java aplikace je pak stažen nodejs a npm, spuštěn gulp b
 
 Poté jsou vytvořené assety začleněny do vzniklého war archivu, které může být nasazeno na samostatný server, případně spuštěno samo o sobě.
 
-Vrámci volitelného profilu se mohou spustit také integrační testy. 
+Vrámci volitelného profilu se mohou spustit také integrační testy.
 
 ##Java programátor##
 
@@ -44,7 +44,7 @@ Výsledkem buildu modulu *java-devstack-webapp* je war, které může být jak n
 mvn jetty:run-war
 ```
 
-Případně samostatně 
+Případně samostatně
 
 ```
 java -jar target/java-devstack-webapp-<verze>.war
@@ -67,8 +67,8 @@ npm run protractor
 
 ###Komunikace s backendem###
 Je možné použít fiktivní json api v src/api, případně se připojovat rovnou ke spuštěné backend aplikaci.
-Toto je možné nastavit v *config.js* 
- 
+Toto je možné nastavit v *config.js*
+
 ```
 proxy: false
 ```
@@ -81,14 +81,14 @@ proxy: {
 ```
 
 V kódu aplikace se pak stačí odkazovat jen na api
- 
+
 ```
 $resource('api/user/:id', {id: '@id'});
 ```
 
 ###Spuštění java aplikace###
 
-Aplikaci je možné spustit lokálně stejně jako v případě java programátora, spuštěním maven buildu v kořenovém adresáří. 
+Aplikaci je možné spustit lokálně stejně jako v případě java programátora, spuštěním maven buildu v kořenovém adresáří.
 
 ```
 mvn clean install
@@ -115,5 +115,5 @@ java -jar java-devstack-webapp-<version>.war
 11.11.2014 - Java and javascript consistency na BrnoJS (materiály: http://www.angular.cz/brnojs/)
 
 ##Licence##
-Tento projekt nebo know-how můžete používat kdekoli, včetně komerčních projektů. 
+Tento projekt nebo know-how můžete používat kdekoli, včetně komerčních projektů.
 Jediné co po Vás za to budeme chtít, abyste nám o tom dali vědět, ať víme, komu jsme pomohli.
