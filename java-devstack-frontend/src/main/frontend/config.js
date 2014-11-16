@@ -11,11 +11,11 @@ module.exports = {
       lrPort: util.env.LRPORT || 35729,
       run: false,
       open: false,
-//      proxy: false
-      proxy: {
-        routePath: '/src/api',
-        destinationUrl: 'http://localhost:8080/api'
-      }
+      proxy: false
+      //proxy: {
+      //  routePath: '/src/api',
+      //  destinationUrl: 'http://localhost:8080/api'
+      //}
     },
     dirs: {
       build: 'build/',
