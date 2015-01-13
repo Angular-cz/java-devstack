@@ -22,16 +22,12 @@ describe('create page', function() {
     element(by.css("button")).click();
 
     var ptor = protractor.getInstance();
-
     ptor.waitForAngular();
     expect(ptor.getCurrentUrl()).toContain('/detail/');
 
-    expect(element(by.binding("detail.order.name"))
-        .getText()
-    ).toMatch("Test name");
-
-
-
+    var nameBinding = element(by.binding("detail.order.name"));
+    expect(nameBinding.getText())
+        .toMatch("Test name");
   });
 })
 ;
