@@ -1,50 +1,32 @@
 <div class="orders">
+  <h3>Objednávky</h3>
 
-  <div class="panel">
-    <h3>Objednávky</h3>
-  </div>
-  <table>
+  <p class="text-right">
+    <a class="btn btn-success" href="#create">Vytvořit</a>
+  </p>
+
+  <table class="table">
     <tr>
       <th>Id</th>
-      <th width="20%">Zákazník</th>
-      <th width="25%">Email</th>
-      <th width="12%">Stav</th>
+      <th>Zákazník</th>
+      <th>Email</th>
+      <th>Stav</th>
       <th>Datum odeslání</th>
       <th>Akce</th>
-    </tr>     
-    <tr>
-      <td></th>
-      <td>
-        <input class="form-control" type="text" ng-model="search.name" />
-      </td>
-      <td>
-        <input class="form-control" type="text" ng-model="search.email" />
-      </td>      
-      <td>
-        <select ng-model="search.status" class="form-control">
-          <option value=""> -- </option>
-          <option ng-repeat="(key,value) in statuses" value="{{key}}">{{value}}</option>           
-        </select>
-      </td>
-      <td></td>
-      <td>
-        <button class="btn btn-default btn-block" ng-click="search = {}">Reset</button>
-      </td>
     </tr>
-
-    <tr ng-repeat="order in orders|filter:search" class="status-{{order.status|lowercase}}">
+    <tr ng-repeat="order in list.orders" class="status-{{order.status|lowercase}}">
       <td ng-bind="order.id"></td>
       <td ng-bind="order.name"></td>
       <td>
         {{order.email}}
       </td>
       <td>
-        <select class="form-control" ng-model="order.status" ng-change="order.$save()" ng-options="key as value for (key,value) in statuses" />          
+        <select class="form-control" ng-model="order.status" ng-change="list.updateOrder(order)" ng-options="key as value for (key,value) in list.statuses" />
       </td>
-      <td ng-bind="order.date | date : longDate"></td>
-      <td>          
-        <a ng-click="removeOrder(order)">Odstranit</a>
-        <a ng-href="#/detail/{{order.id}}">Detail</a>
+      <td ng-bind="order.date | date : 'dd.MM.yyyy'"></td>
+      <td class="align-right">
+        <a ng-href="#/detail/{{order.id}}" class="btn btn-info">Detail</a>
+        <a ng-click="list.removeOrder(order)" class="btn btn-danger">Odstranit</a>
       </td>
     </tr>
   </table>

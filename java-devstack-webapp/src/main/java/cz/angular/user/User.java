@@ -1,32 +1,46 @@
 package cz.angular.user;
 
-import javax.net.ssl.SSLEngineResult;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class User {
-  private long id;
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @Column
   private String name;
+  @Column
   private String email;
+  @Column
   private Status status;
-  private Address address;
+
+  @Column
   private Date date;
 
-  public User(long id, String name, String email, Status status, Address address) {
-    this.id = id;
+  public User(String name, String email) {
+    this(name, email, Status.NEW);
+  }
+
+  public User(String name, String email, Status status) {
     this.name = name;
     this.email = email;
     this.status = status;
-    this.address = address;
+
+    if (this.status == Status.SENT) {
+      this.setDate(new Date());
+    }
   }
 
   public User() {
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -52,14 +66,6 @@ public class User {
 
   public void setStatus(Status status) {
     this.status = status;
-  }
-
-  public Address getAddress() {
-    return address;
-  }
-
-  public void setAddress(Address address) {
-    this.address = address;
   }
 
   public Date getDate() {

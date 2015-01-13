@@ -1,26 +1,23 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   angular.module('administration.orders.list', [])
-    .controller('ListCtrl',
-    function ($scope, Orders) {
+      .controller('OrderListController', function(Orders, $location, statuses) {
+        var orderCtrl = this;
+        this.orders = Orders.query();
 
-      $scope.orders = Orders.query();
+        this.statuses = statuses;
 
-      $scope.statuses = {
-        NEW: 'Nová',
-        CANCELLED: 'Zrušená',
-        PAID: 'Zaplacená',
-        SENT: 'Odeslaná'
-      };
+        this.removeOrder = function(order) {
+          order.$remove(function() {
+            var index = orderCtrl.orders.indexOf(order);
+            orderCtrl.orders.splice(index, 1);
+          });
+        };
 
-      $scope.removeOrder = function (order) {
-        order.$remove(function () {
-          var index = $scope.orders.indexOf(order);
-          $scope.orders.splice(index, 1);
-        });
-      };
-
-    });
+        this.updateOrder = function(order) {
+          order.$save();
+        };
+      });
 
 })(window.angular);

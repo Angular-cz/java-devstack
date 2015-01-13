@@ -4,9 +4,8 @@
   /* Controllers */
 
   angular.module('administration.orders.detail', [])
-    .controller('DetailCtrl',
-      function($scope, $routeParams, detail) {
-        $scope.order = detail;
+      .controller('OrderDetailController', function(orderData) {
+        this.order = orderData;
       });
 
 })(window.angular);

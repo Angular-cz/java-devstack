@@ -1,0 +1,21 @@
+<h1>Nový uživatel</h1>
+<form name="createForm">
+    <div class="row col-md-6">
+        <p>
+            Jméno:
+            <input type="text" ng-model="create.order.name" class="form-control" required/>
+        </p>
+
+        <p>
+            Email:
+            <input type="email" ng-model="create.order.email" class="form-control" required/>
+        </p>
+
+        <p>
+
+        </p>
+        <button class="btn btn-success" ng-disabled="createForm.$invalid" ng-click="create.save(create.order)">Uložit</button>
+        <a class="btn btn-warning" ng-href="#/orders">Zrušit</a>
+    </div>
+</form>
+

@@ -11,20 +11,19 @@ import javax.servlet.ServletException;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
-		return application.sources(Application.class);
-	}
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
 
-  @Override
-  public void onStartup(ServletContext servletContext) throws ServletException {
-    super.onStartup(servletContext);
-
-    FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encoding-filter", new CharacterEncodingFilter());
-    encodingFilter.setInitParameter("encoding", "UTF-8");
-    encodingFilter.setInitParameter("forceEncoding", "true");
-    encodingFilter.addMappingForUrlPatterns(null, true, "/*");
-  }
+        FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encoding-filter", new CharacterEncodingFilter());
+        encodingFilter.setInitParameter("encoding", "UTF-8");
+        encodingFilter.setInitParameter("forceEncoding", "true");
+        encodingFilter.addMappingForUrlPatterns(null, true, "/*");
+    }
 
 }

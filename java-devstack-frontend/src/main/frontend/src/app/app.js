@@ -6,10 +6,13 @@
       'ngRoute',
       'administration.orders'
     ])
-    .config(['$routeProvider',
+
+      .constant('REST_URI', 'api')
+
+      .config(['$routeProvider',
       function ($routeProvider) {
         $routeProvider.otherwise({
-          redirectTo: '/user'
+          redirectTo: '/orders'
         });
       }]);
 })(window.angular);

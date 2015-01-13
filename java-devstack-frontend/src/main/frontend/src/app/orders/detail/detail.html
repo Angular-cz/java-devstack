@@ -1,5 +1,9 @@
-<h1>Objednávka - {{order.name}}</h1>
-<h2>Adresa</h2>
-<p class="lead">
-   {{order.address.street}}, {{order.address.zip}} {{order.address.city}}
-</p>
+<h1>Objednávka - {{detail.order.name}}</h1>
+<div class="well">
+    <p class="lead"><strong>Email:</strong> {{detail.order.email}}</p>
+    <p class="lead"><strong>Stav:</strong> {{detail.order.status|statusTranslation}}
+        <span ng-if="detail.order.date">({{detail.order.date|date : "dd.MM.yyyy"}})</span>
+    </p>
+</div>
+
+<a class="btn btn-success" ng-href="#/orders">Zpět</a>

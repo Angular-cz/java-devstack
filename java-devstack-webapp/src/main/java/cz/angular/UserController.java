@@ -1,12 +1,12 @@
 package cz.angular;
 
-import java.util.Collection;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
+import cz.angular.user.Status;
 import cz.angular.user.User;
-import cz.angular.user.UserService;
+import cz.angular.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,25 +17,47 @@ public class UserController {
   private final AtomicLong counter = new AtomicLong();
 
   @Autowired
-  private UserService userService;
+  private UserRepository userRepository;
 
-  @RequestMapping(value = "/user", method= RequestMethod.GET)
-  public Collection<User> getUsers() {
-    return userService.getUsers();
+  @RequestMapping(value = "/orders", method= RequestMethod.GET)
+  public Iterable<User> getUsers() {
+    return userRepository.findAll();
   }
 
-  @RequestMapping(value = "/user/{id}", method= RequestMethod.GET)
+  @RequestMapping(value = "/orders", method= RequestMethod.POST)
+  public User createUser(@RequestBody User user) {
+
+    user.setStatus(Status.NEW);
+    return userRepository.save(user);
+  }
+
+  @RequestMapping(value = "/orders/{id}", method= RequestMethod.GET)
   public User getUser(@PathVariable Long id) {
-    return userService.getUser(id);
+    return userRepository.findOne(id);
   }
 
-  @RequestMapping(value = "/user/{id}", method= RequestMethod.DELETE)
+  @RequestMapping(value = "/orders/{id}", method= RequestMethod.DELETE)
   public void removeUser(@PathVariable Long id) {
-    userService.removeUser(id);
+    userRepository.delete(id);
   }
 
-  @RequestMapping(value = "/user/{id}", method= RequestMethod.POST)
+  @RequestMapping(value = "/orders/{id}", method= RequestMethod.POST)
   public User updateUser(@PathVariable Long id, @RequestBody User user) {
-    return userService.updateUser(id, user);
+
+    User userInDb = userRepository.findOne(id);
+
+    userInDb.setName(user.getName());
+    userInDb.setEmail(user.getEmail());
+
+    if (user.getStatus() == Status.SENT && hasStatusChanged(user, userInDb)) {
+      userInDb.setDate(new Date());
+    }
+    userInDb.setStatus(user.getStatus());
+
+    return userRepository.save(userInDb);
+  }
+
+  private boolean hasStatusChanged(User user, User userInDb) {
+    return user.getStatus() != userInDb.getStatus();
   }
 }
