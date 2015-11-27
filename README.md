@@ -1,4 +1,6 @@
-# README #
+# Java-devstack #
+
+[![Build Status](https://travis-ci.org/Angular-cz/java-devstack.svg?branch=master)](https://travis-ci.org/Angular-cz/java-devstack)
 
 #Proč java-devstack#
 
