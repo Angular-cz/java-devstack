@@ -2,61 +2,66 @@
 
 [![Build Status](https://travis-ci.org/Angular-cz/java-devstack.svg?branch=master)](https://travis-ci.org/Angular-cz/java-devstack)
 
-#Proč java-devstack#
 
-Java programátoři berou javascript většinou trochu jinak než javascript programátoři. Přesto musí často spolupracovat.
-Javascript programátor je zvyklý používat nástroje, o kterých běžný java programátor ani neví, že existují.
-Java programátor zase očekává, že k sestavení aplikace pro nasazení mu stačí java a maven.
+[Czech version of readme](README_CZ.md)
+#Why Java-devstack#
 
-Oba by si měli přijít na své. Tento počin proto pojednává o začlenění gulp devstacku do maven projektu.
+I have learnt that in Java based companies Java developers doesn't like javascript programming too much and ussualy don't want to work like Javascript programmers.
+But they still have to cooperate with each other. Its like tale about two kind of programmers - Java / Javascript
 
-##Jak to funguje##
+Javascript programmer wants to use modern tools, which Java develper doesn't even know.
+Java developer expect application build will be smooth with just java and maven without any additional tools.
 
-Javascriptová SPA aplikace je do maven buildu začleněna jako samostatný modul *java-devstack-frontend*
+Both of them should be satisfied during their development.
 
-Devstack použitý zde je postaven na projektu od @MilanLempera(zveřejněn bude brzy) z důvodu dobré práce se zdrojovými soubory, šablonami a podporou proxy-middleware. Samozřejmě je možné použít jakýkoli vlastní.
+That is why this proof of concept show simple integration of gulp devstack into maven project.
 
-Vrámci buildování java aplikace je pak stažen nodejs a npm, spuštěn gulp build, který spustí unit testy a aplikaci sbuilduje.
+##How does it work##
 
-Poté jsou vytvořené assety začleněny do vzniklého war archivu, které může být nasazeno na samostatný server, případně spuštěno samo o sobě.
+Javascript SPA is incorporated into maven built process as independent module *java-devstack-frontend*
 
-Vrámci volitelného profilu se mohou spustit také integrační testy.
+For building frontend application older version of devsteck created @MilanLempera(I hope it will be opensourced soon) is utilized. You can use any kind of devstack your javascript developers are used to.
+During maven build process, nodejs and npm are downloaded, gulp build is processed including the tests.
 
-##Java programátor##
+After that recently created static assets are put into created war archive which can be deployed on server or run independently thenks to embeded jetty.
+By using optional build profile is also possiblet to run end to end tests.
 
-Z pohledu java programátora je javascript začleněn jako samostatný modul *java-devstack-frontend* a nemusí se o něj starat, sbuildované assety se objeví v target/classes/static.
+##Java developer##
 
-Nemusí mít nainstalováno nic jiného než maven. Jediné co stačí udělat je:
+Java developer doesn't want to know about javascript application, so application is packed into the *java-devstack-frontend* and developer doesn't need to care about it, built static assets will appear in target/classes/static.
+He doesn't needo to install anything except maven. Only thing to do is:
 
 
 ```
 mvn clean install
 ```
 
-případně pro spuštění s integračními testy:
+Or running with end to end tests:
 
 
 ```
 mvn clean install -Pintegration-test
 ```
 
-Výsledkem buildu modulu *java-devstack-webapp* je war, které může být jak nasazeno, tak spuštěno pomocí
+Result of *java-devstack-webapp* module build is war, which can be run using:
 
 ```
 mvn jetty:run-war
 ```
 
-Případně samostatně
+Or with embedded jetty.
 
 ```
-java -jar target/java-devstack-webapp-<verze>.war
+java -jar target/java-devstack-webapp-<version>.war
 ```
 
-Aplikace může být spuštěna také pomocí start class *cz.angular.Application*
+Surely java application can be run using start class *cz.angular.Application*
 
-##Javascript programátor##
+##Javascript developer##
 
-Z pohledu javascript vývojáře se v modulu *java-devstack-frontend* src/main/frontend nachází běžný gulp devstack.
+From Javascript developer point of view there is ordinary gulp devstack in directory *src/main/frontend* of module *java-devstack-frontend*.
+
+Usage:
 
 ```
 npm install
@@ -67,13 +72,18 @@ npm test
 npm run protractor
 ```
 
-###Komunikace s backendem###
-Je možné použít fiktivní json api v src/api, případně se připojovat rovnou ke spuštěné backend aplikaci.
-Toto je možné nastavit v *config.js*
+###Communication with backendem###
+
+Its possible to use fake api in src/api or connect dirrectly to the running backend application.
+It can be configured in *config.js* in part *proxy*
+
+Turning off proxy:
 
 ```
 proxy: false
 ```
+
+Connecting proxy to the localhost:8080/api
 
 ```
 proxy: {
@@ -82,15 +92,17 @@ proxy: {
 }
 ```
 
-V kódu aplikace se pak stačí odkazovat jen na api
+Thanks to this proxy it is possible to have same path to endpoints for development and built application - */api/*
 
 ```
 $resource('api/user/:id', {id: '@id'});
 ```
 
-###Spuštění java aplikace###
+###Running java application###
 
-Aplikaci je možné spustit lokálně stejně jako v případě java programátora, spuštěním maven buildu v kořenovém adresáří.
+Application can be run locally same as java developer do by running maven task in root directory.
+
+
 
 ```
 mvn clean install
@@ -98,24 +110,23 @@ mvn jetty:run-war
 ```
 
 
-Je zde ale také možnost použít zbuildované war, které spustí jen pomocí javy
+It is also possible to use uilt war and run it with java command.
+
 
 ```
 java -jar java-devstack-webapp-<version>.war
 ```
 
 
-##Použité nástroje bez kterých by to nešlo##
+##Tools used in this proof of concept##
  - spring-boot
  - maven
  - gulp
  - frontend-maven-plugin
  - proxy-middleware
 
-
-##Prezentace##
-11.11.2014 - Java and javascript consistency na BrnoJS (materiály: http://www.angular.cz/brnojs/)
+##Talk in czech##
+11.11.2014 - Java and javascript consistency na BrnoJS (materials: http://www.angular.cz/brnojs/)
 
 ##Licence##
-Tento projekt nebo know-how můžete používat kdekoli, včetně komerčních projektů.
-Jediné co po Vás za to budeme chtít, abyste nám o tom dali vědět, ať víme, komu jsme pomohli.
+This project and know-how can be used everywhere including comercial projects. Only thing we want from you is let us know and use you as reference.
