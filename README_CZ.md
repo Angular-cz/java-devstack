@@ -60,7 +60,15 @@ Z pohledu javascript vývojáře se v modulu *java-devstack-frontend* src/main/f
 npm install
 
 gulp devel
+```
 
+Aplikace poté běží na: http://localhost:8282/src/
+
+
+*Spuštění testů:*
+
+
+```
 npm test
 npm run protractor
 ```

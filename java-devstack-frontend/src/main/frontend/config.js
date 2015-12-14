@@ -1,15 +1,15 @@
 var util = require('gulp-util');
 
 module.exports = {
-  appliaction: {
-    name: 'javaDemo'
+  application: {
+    name: 'administration'
   },
   gulp: {
     httpServer: {
       host: util.env.HOST || 'localhost',
       port: util.env.PORT || 8282,
       lrPort: util.env.LRPORT || 35729,
-      run: false,
+      run: true,
       open: false,
       proxy: false
       //proxy: {
@@ -23,7 +23,11 @@ module.exports = {
       parts: {
         app: 'app/',
         css: 'css/',
-        less: 'less/'
+        less: 'less/',
+        assets: [
+          'img/**/*',
+          'fonts/**/*'
+        ]
       },
       srcApp: 'src/app/',
       srcCss: 'src/css/',
@@ -37,7 +41,8 @@ module.exports = {
       js: {
         application: 'scripts.js',
         vendor: 'vendor.js',
-        templates: 'templates.js'
+        templates: 'templates.js',
+        templatesVendor: 'templates-vendor.js'
       }
     }
   }

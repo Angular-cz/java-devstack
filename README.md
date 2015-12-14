@@ -61,13 +61,18 @@ Surely java application can be run using start class *cz.angular.Application*
 
 From Javascript developer point of view there is ordinary gulp devstack in directory *src/main/frontend* of module *java-devstack-frontend*.
 
-Usage:
+*Usage:*
 
 ```
 npm install
 
 gulp devel
+```
+Application is then running at: http://localhost:8282/src/
 
+*Running tests*
+
+```
 npm test
 npm run protractor
 ```

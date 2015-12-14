@@ -21,9 +21,7 @@ describe('create page', function() {
 
     element(by.css("button")).click();
 
-    var ptor = protractor.getInstance();
-    ptor.waitForAngular();
-    expect(ptor.getCurrentUrl()).toContain('/detail/');
+    expect(browser.getCurrentUrl()).toContain('/detail/');
 
     var nameBinding = element(by.binding("detail.order.name"));
     expect(nameBinding.getText())

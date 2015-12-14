@@ -11,12 +11,12 @@
       .config(function($routeProvider) {
         $routeProvider
             .when('/orders', {
-              templateUrl: 'orders/list/list.html',
+              templateUrl: 'app/orders/list/list.html',
               controller: 'OrderListController',
               controllerAs: 'list'
             })
             .when('/detail/:id', {
-              templateUrl: 'orders/detail/detail.html',
+              templateUrl: 'app/orders/detail/detail.html',
               controller: 'OrderDetailController',
               controllerAs: 'detail',
               resolve: {
@@ -28,7 +28,7 @@
               }
             })
             .when('/create', {
-              templateUrl: 'orders/create/create.html',
+              templateUrl: 'app/orders/create/create.html',
               controller: 'OrderCreateController',
               controllerAs: 'create'
             })

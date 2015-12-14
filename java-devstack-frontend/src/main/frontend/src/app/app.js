@@ -2,9 +2,10 @@
   'use strict';
 
   angular
-    .module('javaDemo', [
+    .module('administration', [
       'ngRoute',
-      'administration.orders'
+      'administration.orders',
+      'administration.templates'
     ])
 
       .constant('REST_URI', 'api')

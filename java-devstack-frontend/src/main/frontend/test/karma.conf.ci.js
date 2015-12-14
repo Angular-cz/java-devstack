@@ -3,9 +3,9 @@ module.exports = function(config) {
     basePath: '../',
     files:[
       'test/utils/Function.bind.polyfill.js',
-      'build/vendor.js',
+      'build/vendor-*.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'build/scripts.js',
+      'build/scripts-*.js',
       'src/**/*.spec.js'
     ],
     frameworks: ['jasmine'],
