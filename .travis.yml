@@ -6,3 +6,9 @@ sauce_connect:
   username: "angular_cz"
   access_key:
     secure: "f42XUFE7T2esDOEP+p6J/RjCxwqs78Mk1P+ZUGKT668kQHWEXlGqOoHf09k2sN5HqNbPdHa74oMsAbq1lClCIZAibYwi4WKHnad4XhGXVvEgorbjAu8UQrG2V2B0e2vbh10Q1RQoKZIA8iGdLeZ84DeUnaPLWxADCheWnB4nR6s="
+
+before_install:
+  - cat /etc/hosts # optionally check the content *before*
+  - sudo hostname "$(hostname | cut -c1-63)"
+  - sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1 $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts
+  - cat /etc/hosts # optionally check the content *after*
