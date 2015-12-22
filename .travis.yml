@@ -1,3 +1,8 @@
 language: java
 jdk:
 - openjdk7
+script: "mvn install -Pintegration-test-travis -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+sauce_connect:
+  username: "angular_cz"
+  access_key:
+    secure: "f42XUFE7T2esDOEP+p6J/RjCxwqs78Mk1P+ZUGKT668kQHWEXlGqOoHf09k2sN5HqNbPdHa74oMsAbq1lClCIZAibYwi4WKHnad4XhGXVvEgorbjAu8UQrG2V2B0e2vbh10Q1RQoKZIA8iGdLeZ84DeUnaPLWxADCheWnB4nR6s="

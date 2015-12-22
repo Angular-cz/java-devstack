@@ -149,7 +149,79 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>integration-test-travis</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>${jetty.version}</version>
+                        <configuration>
+                            <stopPort>9999</stopPort>
+                            <stopKey>foo</stopKey>
+                            <webApp>
+                                <contextPath>/</contextPath>
+                            </webApp>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-server</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <classesDirectory>${project.build.directory}/classes</classesDirectory>
+                                    <daemon>true</daemon>
+                                </configuration>
+                                <phase>pre-integration-test</phase>
+                            </execution>
+                            <execution>
+                                <id>stop-server</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
 
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+
+                        <configuration>
+                            <workingDirectory>../java-devstack-frontend/src/main/frontend</workingDirectory>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>update web driver</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+
+                                <configuration>
+                                    <arguments>run update-webdriver</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>protractor</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>integration-test</phase>
+
+                                <configuration>
+                                    <arguments>run protractor-travis</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>integration-test</id>
             <build>

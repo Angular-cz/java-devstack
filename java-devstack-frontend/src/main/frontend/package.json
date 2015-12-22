@@ -12,7 +12,8 @@
     "test-single-run": "karma start test/karma.conf.js --single-run",
     "update-webdriver": "webdriver-manager update",
     "protractor": "protractor test/protractor-conf.js",
-    "protractor-ci": "protractor test/protractor-conf.ci.js"
+    "protractor-ci": "protractor test/protractor-conf.ci.js",
+    "protractor-travis": "protractor test/protractor-conf.travis.js"
   },
   "author": "angular@angular.cz>",
   "devDependencies": {
